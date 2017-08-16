@@ -1,0 +1,76 @@
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import matplotlib.image as mpimg$/;"	namespace	line:1
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import matplotlib.image as mpimg$/;"	namespace	line:1
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:2
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:2
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import numpy as np$/;"	namespace	line:3
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import cv2$/;"	namespace	line:4
+glob	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import glob$/;"	namespace	line:5
+time	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import time$/;"	namespace	line:6
+LinearSVC	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^from sklearn.svm import LinearSVC$/;"	namespace	line:7
+train_test_split	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^from sklearn.model_selection import train_test_split$/;"	namespace	line:8
+U	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^import Utils as U$/;"	namespace	line:10
+Classifier	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^class Classifier(object):$/;"	class	line:12
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^    def __init__(self):$/;"	member	line:22	class:Classifier
+TrainClassifier	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Classifier.py	/^    def TrainClassifier(self, cars, notcars, classifier='SVC'):$/;"	member	line:34	class:Classifier
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import numpy as np$/;"	namespace	line:1
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import cv2$/;"	namespace	line:2
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:3
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:3
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import matplotlib.image as mpimg$/;"	namespace	line:4
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^import matplotlib.image as mpimg$/;"	namespace	line:4
+StandardScaler	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^from sklearn.preprocessing import StandardScaler$/;"	namespace	line:5
+hog	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^from skimage.feature import hog$/;"	namespace	line:6
+Utils	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^class Utils(object):$/;"	class	line:8
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def __init__(self):$/;"	member	line:10	class:Utils
+BinSpatial	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def BinSpatial(img, size=(32, 32)):$/;"	member	line:14	class:Utils
+ColorHist	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def ColorHist(img, nbins=32, bins_range=(0, 256), richOutput=False):$/;"	member	line:22	class:Utils
+GetHOGFeatures	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def GetHOGFeatures(img, nbOrientation, pix_per_cell, cell_per_block, ravel=True, visualise=False):$/;"	member	line:41	class:Utils
+ExtractFeatures	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def ExtractFeatures(imgs, cspace='RGB', spatial_size=(32, 32),$/;"	member	line:67	class:Utils
+NormalizeFeatures	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def NormalizeFeatures(car_features, notcar_features):$/;"	member	line:121	class:Utils
+GetSlidingWindows	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Utils.py	/^    def GetSlidingWindows(img, x_start_stop=[None, None], y_start_stop=[None, None],$/;"	member	line:136	class:Utils
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import matplotlib.image as mpimg$/;"	namespace	line:1
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import matplotlib.image as mpimg$/;"	namespace	line:1
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:2
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:2
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import numpy as np$/;"	namespace	line:3
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import cv2$/;"	namespace	line:4
+glob	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^import glob$/;"	namespace	line:5
+Database	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^class Database(object):$/;"	class	line:47
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^    def __init__(self):$/;"	member	line:48	class:Database
+data_look	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^    def data_look(self, car_list, notcar_list):$/;"	member	line:56	class:Database
+GetRandomImage	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^    def GetRandomImage(self):$/;"	member	line:74	class:Database
+GetListOfImages	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Database.py	/^    def GetListOfImages(self):$/;"	member	line:78	class:Database
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import numpy as np$/;"	namespace	line:1
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import cv2$/;"	namespace	line:2
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import matplotlib$/;"	namespace	line:3
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^import numpy as np$/;"	namespace	line:7
+Renderer	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^class Renderer(object):$/;"	class	line:9
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^    def __init__(self):$/;"	member	line:11	class:Renderer
+SaveImagesSideBySide	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^    def SaveImagesSideBySide(self, imgA, imgB, fname,$/;"	member	line:15	class:Renderer
+Save3ImagesSideBySide	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^    def Save3ImagesSideBySide(self, imgA, imgB, imgC, fname,$/;"	member	line:35	class:Renderer
+SaveImage	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^    def SaveImage(self, img, fname, grayscale=False):$/;"	member	line:72	class:Renderer
+DrawSlidingBoxes	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Renderer.py	/^    def DrawSlidingBoxes(img, bboxes, color=(0, 0, 255), thick=6):$/;"	member	line:83	class:Renderer
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import numpy as np$/;"	namespace	line:1
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import cv2$/;"	namespace	line:2
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib$/;"	namespace	line:3
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import numpy as np$/;"	namespace	line:7
+C	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Classifier as C$/;"	namespace	line:9
+D	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Database as D$/;"	namespace	line:10
+R	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Renderer as R$/;"	namespace	line:11
+U	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Utils as U$/;"	namespace	line:12
+Test	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^class Test(object):$/;"	class	line:15
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def __init__(self):$/;"	member	line:17	class:Test
+TestHOG	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestHOG(self, image):$/;"	member	line:23	class:Test
+TestNormalizationFeatures	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestNormalizationFeatures(self):$/;"	member	line:45	class:Test
+TestTrainClassifier	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestTrainClassifier(self):$/;"	member	line:65	class:Test
+TestSlidingWindows	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestSlidingWindows(self, img):$/;"	member	line:72	class:Test
+RunTests	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def RunTests(self):$/;"	member	line:80	class:Test
+test	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    test = Test()$/;"	variable	line:103

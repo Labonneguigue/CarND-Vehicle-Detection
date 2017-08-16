@@ -1,0 +1,64 @@
+@startuml
+title Top-level class diagram
+
+class Database {
+    + csvFile
+    + pickleFileName
+    + GetImagesAndLabels()
+    + Save2Pickle()
+    + LoadFromPickle()
+}
+
+class Renderer {
+    + SaveImagesSideBySide(image1, image2, fname[, title1, title2])
+    + SaveImage(image, fname)
+}
+
+class Test
+
+class VehicleDetector {
+    + bool outputToImages
+    + string outputVideoName
+    + ProcessImage : image
+}
+
+class Classifier {
+    + float testTrainingRatio
+    + int nbOrientations
+    + int pixels_per_cell
+    + int cells_per_block
+    + color_space
+    + hist_bins
+    + hog_channels
+    + Run()
+    + RunHOG()
+    + ExtractFeatures()
+    + TrainClassifier()
+}
+
+class Filter {
+    + trackedCars[]
+    + FilterBBoxes(bBoxes) : bBoxes
+}
+
+class Utils {
+    + GetSlidingWindows() ; sWindows
+    + OverlayBoundingBoxes(image, bBoxes)
+}
+
+Test *-- VehicleDetector
+Test --> Renderer : uses
+Test --> Database : uses
+
+VehicleDetector -- Database : uses
+VehicleDetector *-- Classifier
+VehicleDetector *-- Filter
+VehicleDetector --> Utils : uses
+VehicleDetector --> Renderer : uses
+
+
+note bottom of Filter
+    scipy.ndimage.measurements.label
+end note
+
+@enduml

@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import numpy as np$/;"	namespace	line:1
+cv2	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import cv2$/;"	namespace	line:2
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib$/;"	namespace	line:3
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+mpimg	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.image as mpimg$/;"	namespace	line:5
+matplotlib	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+plt	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import matplotlib.pyplot as plt$/;"	namespace	line:6
+np	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import numpy as np$/;"	namespace	line:7
+C	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Classifier as C$/;"	namespace	line:9
+D	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Database as D$/;"	namespace	line:10
+R	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Renderer as R$/;"	namespace	line:11
+U	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^import Utils as U$/;"	namespace	line:12
+Test	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^class Test(object):$/;"	class	line:15
+__init__	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def __init__(self):$/;"	member	line:17	class:Test
+TestHOG	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestHOG(self, image):$/;"	member	line:23	class:Test
+TestNormalizationFeatures	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestNormalizationFeatures(self):$/;"	member	line:45	class:Test
+TestTrainClassifier	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestTrainClassifier(self):$/;"	member	line:65	class:Test
+TestSlidingWindows	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def TestSlidingWindows(self, img):$/;"	member	line:72	class:Test
+RunTests	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    def RunTests(self):$/;"	member	line:80	class:Test
+test	/Users/guiwake/Documents/Programmation/MOOC/Udacity/Vehicle-Detection/Test.py	/^    test = Test()$/;"	variable	line:103
