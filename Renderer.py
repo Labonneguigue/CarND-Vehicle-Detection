@@ -80,13 +80,18 @@ class Renderer(object):
         print("Saved : " + fname)
 
     @staticmethod
-    def DrawSlidingBoxes(img, bboxes, color=(0, 0, 255), thick=6):
+    def DrawSlidingBoxes(img, bboxes, color=(0, 0, 255), thick=4, random=False):
         # Make a copy of the image
         imcopy = np.copy(img)
         # Iterate through the bounding boxes
-        for bbox in bboxes:
-            # Draw a rectangle given bbox coordinates
-            color = (np.random.randint(0, 255), np.random.randint(0, 255), np.random.randint(0, 255))
-            cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
+        if random:
+            for bbox in bboxes:
+                if np.random.randint(0, 100) < 25:
+                    cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
+        else:
+            for bbox in bboxes:
+                # Draw a rectangle given bbox coordinates
+                #color = (np.random.randint(0, 255), np.random.randint(0, 255), np.random.randint(0, 255))
+                cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
         # Return the image copy with boxes drawn
         return imcopy

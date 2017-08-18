@@ -19,7 +19,7 @@ class Classifier(object):
     * With block normalization
     Feature vector = nbBlocks * nbCells/Block * nbOrientation
     """
-    def __init__(self):
+    def __init__(self, cars, notcars):
         super(Classifier, self).__init__()
         self.pix_per_cell = 8
         self.cell_per_block = 2
@@ -29,7 +29,18 @@ class Classifier(object):
         self.histBins = 32
         self.spatialSize = (32, 32)
         self.hogChannels = 'ALL'
+        #classifier
+        self.classifierType = 'SVC' # Only choice so far
+        self.classifier = self.CreateClassifier(cars, notcars)
 
+
+    def CreateClassifier(self, cars, notcars):
+        if self.classifierType == 'SVC':
+            self.classifier = LinearSVC()
+            self.TrainClassifier(cars, notcars)
+            return self.classifier
+        else:
+            print("Not implemented")
 
     def TrainClassifier(self, cars, notcars, classifier='SVC'):
         '''
@@ -69,19 +80,26 @@ class Classifier(object):
         print('Feature vector length:', len(X_train[0]))
         print('Training set length:', len(X_train))
         print('Test set length:', len(X_test))
+
+        #if self.classifier = 'SVC':
         # Use a linear SVC
-        svc = LinearSVC()
+        # svc = LinearSVC()
         # Check the training time for the SVC
         t=time.time()
-        svc.fit(X_train, y_train)
+        self.classifier.fit(X_train, y_train)
         t2 = time.time()
         print(round(t2-t, 2), 'Seconds to train SVC...')
         # Check the score of the SVC
-        print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
+        print('Test Accuracy of SVC = ', round(self.classifier.score(X_test, y_test), 4))
         # Check the prediction time for a single sample
         t=time.time()
         n_predict = 10
-        print('My SVC predicts:    ', svc.predict(X_test[0:n_predict]))
+        print('My SVC predicts:    ', self.classifier.predict(X_test[0:n_predict]))
         print('For these',n_predict, 'labels: ', y_test[0:n_predict])
         t2 = time.time()
         print(round(t2-t, 5), 'Seconds to predict', n_predict,'labels with SVC')
+
+        # else:
+        #     print()
+        #     print("Not implemented")
+        #     print()

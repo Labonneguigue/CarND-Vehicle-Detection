@@ -71,9 +71,18 @@ class Test(object):
 
     def TestSlidingWindows(self, img):
         print("Run Sliding Windows test:")
-        bboxes = U.Utils.GetSlidingWindows(img)
-        result = R.Renderer.DrawSlidingBoxes(img, bboxes)
-        self.renderer.SaveImage(result, "sliding_window.png")
+        bboxes128 = U.Utils.GetSlidingWindows(img,
+                            y_start_stop=(img.shape[0]*2/5, img.shape[0]),
+                            xy_window=(128, 128),
+                            xy_overlap=(0.75, 0.75))
+        bboxes64 = U.Utils.GetSlidingWindows(img,
+                            y_start_stop=(img.shape[0]*2/5, img.shape[0]),
+                            xy_window=(64, 64),
+                            xy_overlap=(0.75, 0.75))
+        result = R.Renderer.DrawSlidingBoxes(img, bboxes64, random=True)
+        self.renderer.SaveImage(result, "sliding_window-64.png")
+        result = R.Renderer.DrawSlidingBoxes(img, bboxes128, color=(255, 0, 0), random=True)
+        self.renderer.SaveImage(result, "sliding_window-128.png")
         print("End of Sliding windows test.")
         print()
 
@@ -88,9 +97,9 @@ class Test(object):
             self.TestHOG(self.database.GetRandomImage())
         if 0:
             self.TestNormalizationFeatures()
-        if 0:
-            self.TestTrainClassifier()
         if 1:
+            self.TestTrainClassifier()
+        if 0:
             self.TestSlidingWindows(self.database.GetRandomImage())
 
         print()

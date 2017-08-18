@@ -64,7 +64,7 @@ class Utils(object):
             return features
 
     @staticmethod
-    def ExtractFeatures(imgs, cspace='RGB', spatial_size=(32, 32),
+    def ExtractFeatures(imgs, cspace='YUV', spatial_size=(32, 32),
                             hist_bins=32, hist_range=(0, 256),
                             hog_channel='ALL', nbOrientation=9,
                             pix_per_cell=8, cell_per_block=2):
@@ -135,6 +135,17 @@ class Utils(object):
     @staticmethod
     def GetSlidingWindows(img, x_start_stop=[None, None], y_start_stop=[None, None],
                         xy_window=(64, 64), xy_overlap=(0.5, 0.5)):
+        '''
+        This function returns a list of bounding boxes that can be used
+        to obtain small patchs of the image and use them to determine
+        if they contain a car or not
+
+        Parameters:
+        x_start_stop and y_start_stop determine the region of the image
+            that is considered when creating the bounding boxes
+        xy_window is the size of the bounding boxes
+        xy_overlap is the overlapping between 2 consecutive bounding boxes.
+        '''
         # If x and/or y start/stop positions not defined, set to image size
         if x_start_stop[0] == None:
             x_start_stop[0] = 0
@@ -164,10 +175,10 @@ class Utils(object):
         for ys in range(ny_windows):
             for xs in range(nx_windows):
                 # Calculate window position
-                startx = xs*nx_pix_per_step + x_start_stop[0]
-                endx = startx + xy_window[0]
-                starty = ys*ny_pix_per_step + y_start_stop[0]
-                endy = starty + xy_window[1]
+                startx = int(xs*nx_pix_per_step + x_start_stop[0])
+                endx = int(startx + xy_window[0])
+                starty = int(ys*ny_pix_per_step + y_start_stop[0])
+                endy = int(starty + xy_window[1])
                 # Append window position to list
                 window_list.append(((startx, starty), (endx, endy)))
         # Return the list of windows

@@ -46,12 +46,34 @@ import glob
 
 class Database(object):
     def __init__(self):
+        # Udacity dataset
         self.pathToDataset = "../data/object-dataset/"
         self.images = glob.glob(self.pathToDataset + "*.jpg")
+        # Udacity project dataset
         self.pathToVehicles = "../data/vehicles_smallset/cars1/"
         self.pathToNonVehicles = "../data/non-vehicles_smallset/notcars1/"
         self.cars = glob.glob(self.pathToVehicles + "*.jpeg")
         self.notcars = glob.glob(self.pathToNonVehicles + "*.jpeg")
+        # Small project test images - Nb: 6
+        self.pathToTestImages = "./test_images/"
+        self.testImages = glob.glob(self.pathToTestImages + "*.jpg")
+        assert(len(self.testImages) != 0)
+        # Path to input video
+        self.intputVideo = "./project_video.mp4"
+        # Path to output video
+        self.outputVideoName = "./output_videos/project_video.mp4"
+        # Image data
+        self.imageSize = self.GetImageSize()
+
+    def GetOutputVideoPath(self):
+        return self.outputVideoName
+
+    def GetImageSize(self):
+        '''
+        Probably differentiate between training and
+        test images...
+        '''
+        return self.GetRandomImage().shape
 
     def data_look(self, car_list, notcar_list):
         '''
@@ -71,9 +93,11 @@ class Database(object):
         # Return data_dict
         return data_dict
 
-    def GetRandomImage(self):
-        image = np.random.randint(0, len(self.images))
-        return mpimg.imread(self.images[image])
+    def GetRandomImage(self, path=None):
+        if path is None:
+            path = self.testImages
+        image = np.random.randint(0, len(path))
+        return mpimg.imread(path[image])
 
     def GetListOfImages(self):
         '''
