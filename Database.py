@@ -95,9 +95,11 @@ class Database(object):
 
     def GetRandomImage(self, path=None):
         if path is None:
-            path = self.testImages
-        image = np.random.randint(0, len(path))
-        return mpimg.imread(path[image])
+            images = self.testImages
+        else:
+            images = glob.glob(path)
+        image = np.random.randint(0, len(images))
+        return mpimg.imread(images[image])
 
     def GetListOfImages(self):
         '''

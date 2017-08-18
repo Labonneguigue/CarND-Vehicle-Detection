@@ -5,6 +5,7 @@ matplotlib.use('agg')
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
+from moviepy.editor import VideoFileClip
 
 import Classifier as C
 import Database as D
@@ -31,12 +32,10 @@ class VehicleDetector(object):
 
         # Train classifier ?
         self.trainClassifier = 1
-        if self.trainClassifier:
-            self.classifier.TrainClassifier(self.database.cars,
-                                            self.database.notcars)
-
+        # TODO: implement the loading
 
     def LoadSlidingWindows(self):
+        img = self.database.GetRandomImage()
         bboxes = []
         bboxes = U.Utils.GetSlidingWindows(img,
                             y_start_stop=(img.shape[0]*2/5, img.shape[0]),
@@ -47,10 +46,10 @@ class VehicleDetector(object):
                             xy_window=(64, 64),
                             xy_overlap=(self.xy_overlap, self.xy_overlap)))
         assert(len(bboxes) != 0)
-        print("The VehicleDetector uses " + str(len(bboxes) + " sliding windows."))
+        print("The VehicleDetector uses " + str(len(bboxes)) + " sliding windows.")
         return bboxes
 
-    def DetectCars(self, image):
+    def DetectCars(self, img):
         '''
         Run the classifier in predict mode on each sub-images
         in the provided image
@@ -59,8 +58,8 @@ class VehicleDetector(object):
         for window in self.bboxes:
             currentlyTestedImg = cv2.resize(img[window[0][1]:window[1][1], window[0][0]:window[1][0]], (64, 64))
             imgFeatures = U.Utils.ExtractFeatures(currentlyTestedImg,
-                                spatial_size=(self.classifier.spatial_size, self.classifier.spatial_size),
-                                hist_bins=self.classifier.hist_bins,
+                                spatial_size=(self.classifier.spatialSize, self.classifier.spatialSize),
+                                hist_bins=self.classifier.histBins,
                                 nbOrientation=self.classifier.nbOrientation,
                                 pix_per_cell=self.classifier.pix_per_cell,
                                 cell_per_block=self.classifier.cell_per_block)
@@ -70,14 +69,14 @@ class VehicleDetector(object):
                 detections.append(window)
         return windows
 
-    def ProcessImage(self, image, key_frame_interval, cache_length=10):
+    def ProcessImage(self, image, key_frame_interval=20, cache_length=10):
         '''
         Entire processing pipeline
         '''
         hot_windows = self.DetectCars(image)
         return U.Utils.DrawSlidingBoxes(hot_windows)
 
-    def OutputImages(self, image, key_frame_interval, cache_length=10):
+    def OutputImages(self, image, key_frame_interval=20, cache_length=10):
         '''
         Entire processing pipeline and output each output
         images to an image file
