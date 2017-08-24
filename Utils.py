@@ -13,6 +13,8 @@ class Utils(object):
     @staticmethod
     def BinSpatial(img, size=(32, 32)):
         # Use cv2.resize().ravel() to create the feature vector
+        #print("Spatial bin - Image dim : " + str(img.shape) + " output size : " + str(size))
+        assert(len(size) == 2)
         features = cv2.resize(img, size).ravel()
         # Return the feature vector
         return features
@@ -64,7 +66,7 @@ class Utils(object):
             return features
 
     @staticmethod
-    def ExtractFeatures(imgs, cspace='YUV', spatial_size=(32, 32),
+    def ExtractListImagesFeatures(imgs, cspace='YUV', spatial_size=(32, 32),
                             hist_bins=32, hist_range=(0, 256),
                             hog_channel='ALL', nbOrientation=9,
                             pix_per_cell=8, cell_per_block=2):
@@ -78,47 +80,58 @@ class Utils(object):
         for file in imgs:
             # Read in each one by one
             image = mpimg.imread(file)
-            # apply color conversion if other than 'RGB'
-            if cspace != 'RGB':
-                if cspace == 'HSV':
-                    feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-                elif cspace == 'LUV':
-                    feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2LUV)
-                elif cspace == 'HLS':
-                    feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
-                elif cspace == 'YUV':
-                    feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
-            else: feature_image = np.copy(image)
-            # Apply bin_spatial() to get spatial color features
-            spatial_features = Utils.BinSpatial(feature_image, size=spatial_size)
-            # Apply color_hist() also with a color space option now
-            hist_features = Utils.ColorHist(feature_image,
-                                           nbins=hist_bins,
-                                           bins_range=hist_range)
-
-            # Call get_hog_features() with vis=False, feature_vec=True
-            if hog_channel == 'ALL':
-                hog_features = []
-                for channel in range(feature_image.shape[2]):
-                    hog_features.append(Utils.GetHOGFeatures(feature_image[:,:,channel],
-                                        nbOrientation, pix_per_cell, cell_per_block,
-                                        visualise=False, ravel=True))
-                hog_features = np.ravel(hog_features)
-            else:
-                hog_features = Utils.GetHOGFeatures(feature_image[:,:,hog_channel],
-                                        nbOrientation, pix_per_cell,
-                                        cell_per_block, visualise=False, ravel=True)
-
-
             # Append the new feature vector to the features list
-            features.append(np.concatenate((spatial_features, hist_features, hog_features)))
+            features.append(Utils.ExtractFeatures(image, cspace, spatial_size,
+                                    hist_bins, hist_range,
+                                    hog_channel, nbOrientation,
+                                    pix_per_cell, cell_per_block))
             #features.append(hog_features)
         # Return list of feature vectors
         return features
 
+    @staticmethod
+    def ExtractFeatures(image, cspace='YUV', spatial_size=(32, 32),
+                        hist_bins=32, hist_range=(0, 256),
+                        hog_channel='ALL', nbOrientation=9,
+                        pix_per_cell=8, cell_per_block=2):
+        # apply color conversion if other than 'RGB'
+        if cspace != 'RGB':
+            if cspace == 'HSV':
+                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+            elif cspace == 'LUV':
+                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2LUV)
+            elif cspace == 'HLS':
+                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
+            elif cspace == 'YUV':
+                feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
+        else: feature_image = np.copy(image)
+        # Apply bin_spatial() to get spatial color features
+        spatial_features = Utils.BinSpatial(feature_image)
+        # Apply color_hist() also with a color space option now
+        hist_features = Utils.ColorHist(feature_image,
+                                       nbins=hist_bins,
+                                       bins_range=hist_range)
+
+        # Call get_hog_features() with vis=False, feature_vec=True
+        if hog_channel == 'ALL':
+            hog_features = []
+            for channel in range(feature_image.shape[2]):
+                hog_features.append(Utils.GetHOGFeatures(feature_image[:,:,channel],
+                                    nbOrientation, pix_per_cell, cell_per_block,
+                                    visualise=False, ravel=True))
+            hog_features = np.ravel(hog_features)
+        else:
+            hog_features = Utils.GetHOGFeatures(feature_image[:,:,hog_channel],
+                                    nbOrientation, pix_per_cell,
+                                    cell_per_block, visualise=False, ravel=True)
+
+
+        # Return the feature list
+        return np.concatenate((spatial_features, hist_features, hog_features))
+
 
     @staticmethod
-    def NormalizeFeatures(car_features, notcar_features):
+    def NormalizeFeatures(car_features, notcar_features, scaler):
         '''
         Normalize each set of features so that they have equal variance
         '''
@@ -127,9 +140,9 @@ class Utils(object):
         # Create an array stack of feature vectors
         X = np.vstack((car_features, notcar_features)).astype(np.float64)
         # Fit a per-column scaler
-        X_scaler = StandardScaler().fit(X)
+        scaler.fit(X)
         # Apply the scaler to X
-        return X_scaler.transform(X), X
+        return scaler.transform(X), X
 
 
     @staticmethod

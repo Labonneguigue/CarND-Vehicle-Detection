@@ -31,6 +31,7 @@ class Renderer(object):
         ax2.set_title(titleB, fontsize=30)
         plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
         plt.savefig(self.outputFolder + fname)
+        print("Saved : " + self.outputFolder + fname)
 
     def Save3ImagesSideBySide(self, imgA, imgB, imgC, fname,
                                 titleA='Original Image',
@@ -68,6 +69,7 @@ class Renderer(object):
 
         plt.subplots_adjust(left=0., right=1, top=0.9, bottom=0.)
         plt.savefig(self.outputFolder + fname)
+        print("Saved : " + self.outputFolder + fname)
 
     def SaveImage(self, img, fname, grayscale=False):
         '''
@@ -86,7 +88,7 @@ class Renderer(object):
         # Iterate through the bounding boxes
         if random:
             for bbox in bboxes:
-                if np.random.randint(0, 100) < 25:
+                if np.random.randint(0, 100) < 2:
                     cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
         else:
             for bbox in bboxes:
@@ -95,3 +97,22 @@ class Renderer(object):
                 cv2.rectangle(imcopy, bbox[0], bbox[1], color, thick)
         # Return the image copy with boxes drawn
         return imcopy
+
+    @staticmethod
+    def AggregateViews(views):
+        '''
+        Creates an aggregated image for a better display
+        '''
+        H = 1080 #self.imageHeight      #Height of the output image
+        W = 1920 #self.imageWidth       #Width of the output image
+        aggregateViews = np.zeros((H, W, 3), dtype=np.uint8)
+        h2 = int(H/2)
+        w2 = int(W/2)
+        # Input image with overlayed detected vehicles -- 1
+        aggregateViews[0:h2, 0:w2] = cv2.resize(views[0],(w2,h2), interpolation=cv2.INTER_AREA)
+        # Heat map -- 2
+        view2 = np.dstack([views[1], views[1], views[1]]).astype(np.uint8)
+        #view2 = cv2.addWeighted(views[0], 0.8, views[1], 0.8, 0)
+        aggregateViews[0:h2, w2:W] = cv2.resize(view2,(w2,h2), interpolation=cv2.INTER_AREA)
+
+        return aggregateViews
