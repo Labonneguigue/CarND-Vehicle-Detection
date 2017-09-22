@@ -78,9 +78,11 @@ class VehicleDetector(object):
         assert(self.classifier.scaler != None)
         assert(self.classifier.classifier != None)
         detections = []
+        #i = 0
         for window in self.bboxes:
             # print(window)
             # print(img.shape)
+            #print(window)
             currentlyTestedImg = cv2.resize(img[window[0][1]:window[1][1], window[0][0]:window[1][0]], (64, 64))
             imgFeatures = U.Utils.ExtractFeatures(currentlyTestedImg,
                                 spatial_size=(self.classifier.spatialSize, self.classifier.spatialSize),
@@ -90,8 +92,10 @@ class VehicleDetector(object):
                                 cell_per_block=self.classifier.cell_per_block)
             testedFeatures = self.classifier.scaler.transform(np.array(imgFeatures).reshape(1, -1))
             prediction = self.classifier.classifier.predict(testedFeatures)
+            #self.renderer.SaveImage(currentlyTestedImg, "../temp/" + str(i) + ".jpeg")
             if prediction == 1:
                 detections.append(window)
+            #i+=1
         return detections
 
     def ProcessImage(self, image, key_frame_interval=20, cache_length=10, filtering=True, agg=False, heatmap=False):
@@ -122,7 +126,7 @@ class VehicleDetector(object):
 
     def ProcessVideo(self):
         print('Processing video ... ' + self.database.inputVideo)
-        vfc = VideoFileClip(self.database.inputVideo).subclip(27, 32)
+        vfc = VideoFileClip(self.database.inputVideo)#.subclip(27, 32)
         if self.outputToImages:
             detected_vid_clip = vfc.fl_image(self.OutputImages)
         else:

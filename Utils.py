@@ -128,12 +128,13 @@ class Utils(object):
 
         # Return the feature list
         return np.concatenate((spatial_features, hist_features, hog_features))
-
+        #return hog_features
 
     @staticmethod
     def NormalizeFeatures(car_features, notcar_features, scaler):
         '''
         Normalize each set of features so that they have equal variance
+        and 0 mean.
         '''
         assert(len(car_features)>0)
         assert(len(notcar_features)>0)

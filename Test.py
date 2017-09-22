@@ -30,8 +30,9 @@ class Test(object):
         '''
         print("Run HOG test:")
         gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        yuv = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
         # Call our function with vis=True to see an image output
-        features, hog_image = self.classifier.GetHOGFeatures(gray,
+        features, hog_image = U.Utils.GetHOGFeatures(yuv[:,:,0], 9, 8, 2,
                                                 ravel=True,
                                                 visualise=True)
         # ravel to False
@@ -39,7 +40,7 @@ class Test(object):
         #ravel to True
         # features.shape = (1281996,)
         self.renderer.SaveImagesSideBySide(image, hog_image, "hog_example.png",
-                                            "Example Car Image",
+                                            "Example Non Car Image",
                                             "HOG Visualization",
                                             grayscale=True)
         print("End of HOG test.")
@@ -70,6 +71,7 @@ class Test(object):
         cars, notcars = self.database.GetListOfImages()
         self.classifier.TrainClassifier(cars, notcars)
         self.database.SaveObject(self.classifier.classifier, self.database.classifierPickleName)
+        self.database.SaveObject(self.classifier.scaler, self.database.scalerPickleName)
         print("End of Train classifier test.")
         print()
 
@@ -108,7 +110,7 @@ class Test(object):
         print("Run Heat Map test:")
         # vehicleDetector = V.VehicleDetector()
         for img in self.database.testImages:
-            resultBBoxes, heatMap = self.vehicleDetector.ProcessImage(mpimg.imread(img), agg=False)
+            resultBBoxes, heatMap = self.vehicleDetector.ProcessImage(mpimg.imread(img), agg=False, heatmap=True)
             self.renderer.SaveImagesSideBySide(resultBBoxes, heatMap,
                                 os.path.basename(img),
                                 "Thresholded bounding boxes",
@@ -121,8 +123,12 @@ class Test(object):
         # vehicleDetector = V.VehicleDetector()
         for img in self.database.testImages:
             result = self.vehicleDetector.ProcessImage(mpimg.imread(img))
+            noFilter = result = self.vehicleDetector.ProcessImage(mpimg.imread(img), filtering=False)
+            self.vehicleDetector.filter.heatMap = None # disable the filtering done over subsequent heatmaps
             self.renderer.SaveImage(result,
                                 os.path.basename(img))
+            self.renderer.SaveImage(result,
+                                os.path.basename(img)[:-4] + "-nofilter.png")
         print("End Process Image Pipeline test.")
         print()
 
@@ -134,7 +140,8 @@ class Test(object):
         print("")
 
         if 0:
-            self.TestHOG(self.database.GetRandomImage(self.database.cars))
+            # self.TestHOG(self.database.GetRandomImage(self.database.pathToVehicles + "**/*.jpeg"))
+            self.TestHOG(self.database.GetRandomImage(self.database.pathToNonVehicles + "**/*.jpeg"))
         if 0:
             self.TestNormalizationFeatures()
         if 1:
@@ -145,7 +152,7 @@ class Test(object):
             self.TestClassification()
         if 0:
             self.TestHeatMap()
-        if 0:
+        if 1:
             self.TestProcessImagePipeline()
 
         print()

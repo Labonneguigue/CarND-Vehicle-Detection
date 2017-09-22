@@ -4,18 +4,24 @@ import cv2
 
 class Filter(object):
     """docstring for Filter."""
-    def __init__(self, threshold=4):
+    def __init__(self, threshold=1):
         super(Filter, self).__init__()
         self.threshold = threshold
         self.heatMap = None
         self.labels = None
+        self.fadeOutFactor = 0.6
+        self.newBBoxWeight = 1
 
-    def AddHeat(self, bboxes):
+
+    def AddHeat(self, bboxes, weight=None):
+        if weight is None:
+            weight = self.newBBoxWeight
+            self.heatMap = self.heatMap * self.fadeOutFactor
         # Iterate through list of bboxes
         for box in bboxes:
             # Add += 1 for all pixels inside each bbox
             # Assuming each "box" takes the form ((x1, y1), (x2, y2))
-            self.heatMap[box[0][1]:box[1][1], box[0][0]:box[1][0]] += 1
+            self.heatMap[box[0][1]:box[1][1], box[0][0]:box[1][0]] += weight
         # Crop the heap map to keep it with observable range
         self.heatMap = np.clip(self.heatMap, 0, 255)
 
@@ -52,8 +58,11 @@ class Filter(object):
 
 
     def FilterBBoxes(self, image, bboxes):
-        self.heatMap = np.zeros_like(image[:,:,0]).astype(np.float)
-        self.AddHeat(bboxes)
+        if self.heatMap is None:
+            self.heatMap = np.zeros_like(image[:,:,0]).astype(np.float)
+            self.AddHeat(bboxes, 1)
+        else:
+            self.AddHeat(bboxes)
         self.ApplyThreshold()
         self.LabelHeatMap()
         return self.DrawLabeledBBoxes(np.copy(image)), self.heatMap

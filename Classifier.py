@@ -24,8 +24,8 @@ class Classifier(object):
         super(Classifier, self).__init__()
         self.pix_per_cell = 8
         self.cell_per_block = 2
-        self.nbOrientation = 9
-        self.testOverTrainingSetRatio = 0.1
+        self.nbOrientation = 11
+        self.testOverTrainingSetRatio = 0.15
         self.cSpace = 'YUV'
         self.histBins = 32
         self.spatialSize = (32, 32)
