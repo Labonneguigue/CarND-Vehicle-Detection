@@ -127,8 +127,8 @@ class Utils(object):
 
 
         # Return the feature list
-        return np.concatenate((spatial_features, hist_features, hog_features))
-        #return hog_features
+        #return np.concatenate((spatial_features, hist_features, hog_features))
+        return hog_features
 
     @staticmethod
     def NormalizeFeatures(car_features, notcar_features, scaler):

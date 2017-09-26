@@ -23,9 +23,9 @@ class Classifier(object):
     def __init__(self, cars, notcars, loadFromFile=False, database=None):
         super(Classifier, self).__init__()
         self.pix_per_cell = 8
-        self.cell_per_block = 2
-        self.nbOrientation = 11
-        self.testOverTrainingSetRatio = 0.15
+        self.cell_per_block = 1
+        self.nbOrientation = 9
+        self.testOverTrainingSetRatio = 0.2
         self.cSpace = 'YUV'
         self.histBins = 32
         self.spatialSize = (32, 32)
@@ -34,8 +34,22 @@ class Classifier(object):
         self.scaler = None
         #classifier
         self.classifierType = 'SVC' # SVC or LinearSVC
+        self.Summary()
         self.classifier = self.CreateClassifier(cars, notcars, loadFromFile, database)
 
+    def Summary(self):
+        print("######################")
+        print("## Vehicle Detector ##")
+        print("#")
+        print("# Pixels per cell : " + str(self.pix_per_cell))
+        print("# Cell per block : " + str(self.cell_per_block))
+        print("# Nb orientations : " + str(self.nbOrientation))
+        print("# Color Space : " + self.cSpace)
+        print("# Histogram bins : " + str(self.histBins))
+        print("# hogChannels : " + self.hogChannels)
+        print("# Classifier Type : " + self.classifierType)
+        print("######################")
+        print()
 
     def CreateClassifier(self, cars, notcars, loadFromFile=False, database=None):
         if self.classifierType == 'SVC':

@@ -14,28 +14,41 @@ class Database(object):
         self.images = glob.glob(self.pathToDataset + "*.jpg")
         assert(len(self.images) != 0)
         # Udacity project dataset
-        self.pathToVehicles = "../data/vehicles_smallset/"#cars1/"
-        self.pathToNonVehicles = "../data/non-vehicles_smallset/"#notcars1/"
-        self.cars = glob.glob(self.pathToVehicles + "**/*.jpeg", recursive=True)
-        self.notcars = glob.glob(self.pathToNonVehicles + "**/*.jpeg", recursive=True)
+        self.pathToVehicles = "../data/vehicles/"
+        self.pathToNonVehicles = "../data/non-vehicles/"
+        self.cars = glob.glob(self.pathToVehicles + "**/*.png", recursive=True)
+        self.notcars = glob.glob(self.pathToNonVehicles + "**/*.png", recursive=True)
         assert(len(self.cars) != 0)
         assert(len(self.notcars) != 0)
         # Small project test images - Nb: 6
         self.pathToTestImages = "./test_images/"
         self.testImages = glob.glob(self.pathToTestImages + "*.jpg")
         assert(len(self.testImages) != 0)
-        # Path to input video
-        #self.inputVideo = "./project_video.mp4"
-        self.inputVideo = "./test_video.mp4"
-        # Path to output video
-        #self.outputVideoName = "./output_videos/project_video.mp4"
-        self.outputVideoName = "./output_videos/test_video.mp4"
+
+        if 0:
+            self.inputVideo = "./test_video.mp4"
+            self.outputVideoName = "./output_videos/test_video.mp4"
+        else:
+            self.inputVideo = "./project_video.mp4"
+            self.outputVideoName = "./output_videos/project_video.mp4"
+
         # Image data
         self.imageSize = self.GetImageSize()
         # Classifier and scaler pickle saved
         self.classifierPickleName = './saved_data/classifier.p'
         self.scalerPickleName = './saved_data/scaler.p'
+        self.Summary()
 
+    def Summary(self):
+        print("######################")
+        print("##     Database     ##")
+        print("# ")
+        print("# Path to vehicle images : " + self.pathToVehicles)
+        print("# Number of images : " + str(len(self.cars)))
+        print("# Path to non-vehicle images : " + self.pathToNonVehicles)
+        print("# Number of images : " + str(len(self.notcars)))
+        print("######################")
+        print()
 
     def GetOutputVideoPath(self):
         return self.outputVideoName

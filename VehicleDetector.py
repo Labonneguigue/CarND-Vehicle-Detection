@@ -17,26 +17,44 @@ class VehicleDetector(object):
     """docstring for VehicleDetector."""
     def __init__(self):
         super(VehicleDetector, self).__init__()
+        # Sliding windows
+        self.yStart = 400
+        self.yStop = 650
+        self.x_overlap = 0.65
+        self.y_overlap = 0.75
+        # Filter
+        self.filterThreshold = 2
+        self.filter = F.Filter(self.filterThreshold)
+        assert(self.filter.threshold == self.filterThreshold)
+        # Print summary to check correct parameters
+        self.Summary()
         # Sub-components
         self.renderer = R.Renderer()
         self.database = D.Database()
-        self.filter = F.Filter()
         cars, notcars = self.database.GetListOfImages()
         self.classifier = C.Classifier(cars, notcars, loadFromFile=True, database=self.database)
         # Output video parameters
         self.outputToImages = 0
         self.outputVideoName = self.database.GetOutputVideoPath()
-        # Sliding windows
-        self.yStart = 400
-        self.yStop = 650
-        self.x_overlap = 0.5
-        self.y_overlap = 0.75
-        self.bboxes = self.LoadSlidingWindows()
-        # Test images
-
         # Train classifier ?
         self.trainClassifier = 1
         # TODO: implement the loading
+        # Bounding boxes
+        self.bboxes = self.LoadSlidingWindows()
+
+
+
+    def Summary(self):
+        '''
+        Prints some of the parameters
+        '''
+        print("######################")
+        print("## Vehicle Detector ##")
+        print("# ")
+        print("# BBoxes X overlap : " + str(self.x_overlap))
+        print("# BBoxes Y overlap : " + str(self.y_overlap))
+        print("######################")
+        print()
 
     def LoadSlidingWindows(self, verbose=False):
         img = self.database.GetRandomImage()
@@ -126,7 +144,7 @@ class VehicleDetector(object):
 
     def ProcessVideo(self):
         print('Processing video ... ' + self.database.inputVideo)
-        vfc = VideoFileClip(self.database.inputVideo)#.subclip(27, 32)
+        vfc = VideoFileClip(self.database.inputVideo)#.subclip(28, 48)#.subclip(14, 17)
         if self.outputToImages:
             detected_vid_clip = vfc.fl_image(self.OutputImages)
         else:

@@ -4,17 +4,34 @@ title Top-level class diagram
 class Database {
     + csvFile
     + pickleFileName
+    + ...
+    + GetOutputVideoPath()
+    + GetImageSize()
     + GetImagesAndLabels()
-    + Save2Pickle()
-    + LoadFromPickle()
+    + GetRandomImage()
+    + GetListOfImages()
+    + SaveObject()
+    + LoadObject()
 }
 
 class Renderer {
-    + SaveImagesSideBySide(image1, image2, fname[, title1, title2])
+    + SaveImagesSideBySide(image1, image2, fname[, title1, title2, grayscale])
+    + Save3ImagesSideBySide(imgA, imgB, imgC, fname[,titleA, titleB, titleC, grayscale, plots)
     + SaveImage(image, fname)
+    + {static} DrawSlidingBoxes(img, bboxes)
+    + {static} AggregateViews(views)
 }
 
-class Test
+class Test {
+    + TestHOG(image)
+    + TestNormalizationFeatures()
+    + TestTrainClassifier()
+    + TestSlidingWindows()
+    + TestClassification()
+    + TestHeatMap()
+    + TestProcessImagePipeline()
+    + RunTests()
+}
 
 class VehicleDetector {
     + bool outputToImages
@@ -42,13 +59,19 @@ class Filter {
 }
 
 class Utils {
-    + GetSlidingWindows() ; sWindows
-    + OverlayBoundingBoxes(image, bBoxes)
+    + {static} BinSpatial() : features
+    + {static} ColorHist() : features
+    + {static} GetHOGFeatures() : features
+    + {static} ExtractListImagesFeatures() : features
+    + {static} ExtractFeatures() : features
+    + {static} NormalizeFeatures() : transform(X), X
+    + {static} GetSlidingWindows() ; sWindows
 }
 
-Test *-- VehicleDetector
-Test --> Renderer : uses
-Test --> Database : uses
+Test *-- VehicleDetector : owns
+Test *-- Renderer : owns
+Test *-- Database : owns
+Test *-- Classifier : owns
 
 VehicleDetector -- Database : uses
 VehicleDetector *-- Classifier
@@ -56,9 +79,5 @@ VehicleDetector *-- Filter
 VehicleDetector --> Utils : uses
 VehicleDetector --> Renderer : uses
 
-
-note bottom of Filter
-    scipy.ndimage.measurements.label
-end note
 
 @enduml

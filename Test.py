@@ -139,10 +139,10 @@ class Test(object):
         print("****************************")
         print("")
 
-        if 0:
+        if 1:
             # self.TestHOG(self.database.GetRandomImage(self.database.pathToVehicles + "**/*.jpeg"))
             self.TestHOG(self.database.GetRandomImage(self.database.pathToNonVehicles + "**/*.jpeg"))
-        if 0:
+        if 1:
             self.TestNormalizationFeatures()
         if 1:
             self.TestTrainClassifier()
@@ -152,7 +152,7 @@ class Test(object):
             self.TestClassification()
         if 0:
             self.TestHeatMap()
-        if 1:
+        if 0:
             self.TestProcessImagePipeline()
 
         print()

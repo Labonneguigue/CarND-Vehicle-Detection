@@ -9,9 +9,22 @@ class Filter(object):
         self.threshold = threshold
         self.heatMap = None
         self.labels = None
-        self.fadeOutFactor = 0.6
+        self.fadeOutFactor = 0.65
         self.newBBoxWeight = 1
+        self.Summary()
 
+    def Summary(self):
+        '''
+        Prints some of the parameters
+        '''
+        print("######################")
+        print("##      Filter      ##")
+        print("# ")
+        print("# Filter threshold : " + str(self.threshold))
+        print("# Fade out factor between frames : " + str(self.fadeOutFactor))
+        print("# New bounding box weight : " + str(self.newBBoxWeight))
+        print("######################")
+        print()
 
     def AddHeat(self, bboxes, weight=None):
         if weight is None:
