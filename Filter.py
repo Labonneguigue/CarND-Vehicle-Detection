@@ -29,7 +29,7 @@ class Filter(object):
     def AddHeat(self, bboxes, weight=None):
         if weight is None:
             weight = self.newBBoxWeight
-            self.heatMap = self.heatMap * self.fadeOutFactor
+
         # Iterate through list of bboxes
         for box in bboxes:
             # Add += 1 for all pixels inside each bbox
@@ -75,7 +75,13 @@ class Filter(object):
             self.heatMap = np.zeros_like(image[:,:,0]).astype(np.float)
             self.AddHeat(bboxes, 1)
         else:
+            self.heatMap = self.heatMap * self.fadeOutFactor
             self.AddHeat(bboxes)
         self.ApplyThreshold()
         self.LabelHeatMap()
         return self.DrawLabeledBBoxes(np.copy(image)), self.heatMap
+
+    def BBoxesAndHeatMap(self, image, bboxes):
+        self.heatMap = np.zeros_like(image[:,:,0]).astype(np.float)
+        self.AddHeat(bboxes, 1)
+        return self.heatMap

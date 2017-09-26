@@ -25,7 +25,6 @@ class VehicleDetector(object):
         # Filter
         self.filterThreshold = 2
         self.filter = F.Filter(self.filterThreshold)
-        assert(self.filter.threshold == self.filterThreshold)
         # Print summary to check correct parameters
         self.Summary()
         # Sub-components
@@ -41,8 +40,6 @@ class VehicleDetector(object):
         # TODO: implement the loading
         # Bounding boxes
         self.bboxes = self.LoadSlidingWindows()
-
-
 
     def Summary(self):
         '''
@@ -83,7 +80,7 @@ class VehicleDetector(object):
             print(str(len(bboxes192)) + " 192 bboxes.")
 
         bboxes.extend(bboxes192)
-        # bboxes = np.hstack(bboxes128,bboxes64)
+
         assert(len(bboxes) != 0)
         print("The VehicleDetector uses " + str(len(bboxes)) + " sliding windows.")
         return bboxes
@@ -96,11 +93,7 @@ class VehicleDetector(object):
         assert(self.classifier.scaler != None)
         assert(self.classifier.classifier != None)
         detections = []
-        #i = 0
         for window in self.bboxes:
-            # print(window)
-            # print(img.shape)
-            #print(window)
             currentlyTestedImg = cv2.resize(img[window[0][1]:window[1][1], window[0][0]:window[1][0]], (64, 64))
             imgFeatures = U.Utils.ExtractFeatures(currentlyTestedImg,
                                 spatial_size=(self.classifier.spatialSize, self.classifier.spatialSize),
@@ -110,11 +103,14 @@ class VehicleDetector(object):
                                 cell_per_block=self.classifier.cell_per_block)
             testedFeatures = self.classifier.scaler.transform(np.array(imgFeatures).reshape(1, -1))
             prediction = self.classifier.classifier.predict(testedFeatures)
-            #self.renderer.SaveImage(currentlyTestedImg, "../temp/" + str(i) + ".jpeg")
             if prediction == 1:
                 detections.append(window)
-            #i+=1
         return detections
+
+    def ProcessIndividualImage(self, image):
+        hot_windows = self.DetectCars(image)
+        heatMap = self.filter.BBoxesAndHeatMap(image, hot_windows)
+        return R.Renderer.DrawSlidingBoxes(image, hot_windows), heatMap
 
     def ProcessImage(self, image, key_frame_interval=20, cache_length=10, filtering=True, agg=False, heatmap=False):
         '''

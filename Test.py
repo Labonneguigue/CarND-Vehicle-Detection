@@ -110,10 +110,10 @@ class Test(object):
         print("Run Heat Map test:")
         # vehicleDetector = V.VehicleDetector()
         for img in self.database.testImages:
-            resultBBoxes, heatMap = self.vehicleDetector.ProcessImage(mpimg.imread(img), agg=False, heatmap=True)
+            resultBBoxes, heatMap = self.vehicleDetector.ProcessIndividualImage(mpimg.imread(img))
             self.renderer.SaveImagesSideBySide(resultBBoxes, heatMap,
                                 os.path.basename(img),
-                                "Thresholded bounding boxes",
+                                "Bounding boxes",
                                 "Heat Map")
         print("End Heat Map test.")
         print()
@@ -123,11 +123,11 @@ class Test(object):
         # vehicleDetector = V.VehicleDetector()
         for img in self.database.testImages:
             result = self.vehicleDetector.ProcessImage(mpimg.imread(img))
-            noFilter = result = self.vehicleDetector.ProcessImage(mpimg.imread(img), filtering=False)
+            noFilter = self.vehicleDetector.ProcessImage(mpimg.imread(img), filtering=False)
             self.vehicleDetector.filter.heatMap = None # disable the filtering done over subsequent heatmaps
             self.renderer.SaveImage(result,
                                 os.path.basename(img))
-            self.renderer.SaveImage(result,
+            self.renderer.SaveImage(noFilter,
                                 os.path.basename(img)[:-4] + "-nofilter.png")
         print("End Process Image Pipeline test.")
         print()
@@ -139,18 +139,18 @@ class Test(object):
         print("****************************")
         print("")
 
-        if 1:
+        if 0:
             # self.TestHOG(self.database.GetRandomImage(self.database.pathToVehicles + "**/*.jpeg"))
             self.TestHOG(self.database.GetRandomImage(self.database.pathToNonVehicles + "**/*.jpeg"))
-        if 1:
-            self.TestNormalizationFeatures()
-        if 1:
-            self.TestTrainClassifier()
         if 0:
+            self.TestNormalizationFeatures()
+        if 0:
+            self.TestTrainClassifier()
+        if 1:
             self.TestSlidingWindows(self.database.GetRandomImage())
         if 0:
             self.TestClassification()
-        if 0:
+        if 1:
             self.TestHeatMap()
         if 0:
             self.TestProcessImagePipeline()
