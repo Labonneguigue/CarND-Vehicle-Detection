@@ -1,14 +1,4 @@
 
-## Notes
-
-Histogram of colors : https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/2b62a1c3-e151-4a0e-b6b6-e424fa46ceab/lessons/fd66c083-4ccb-4fe3-bda1-c29db76f50a0/concepts/4f0692c6-e22d-4f28-b5d0-7990a4d8de86
-
-HOG: https://www.youtube.com/watch?v=7S5qXET179I
-
-Udacity dataset : https://github.com/udacity/self-driving-car/tree/master/annotations
-
-
-
 # Vehicle Detection Project
 
 The goals / steps of this project are the following:
@@ -49,7 +39,8 @@ The goals / steps of this project are the following:
 [video1]: ./project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+
+##### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
 
@@ -212,7 +203,7 @@ Here is the output of `scipy.ndimage.measurements.label()` on the integrated hea
 
 ---
 
-###Discussion
+### Discussion
 
 The HOG technique is quite unstable and although it works ok with this video,
 I would suspect this implementation to generalize pretty badly.
@@ -221,3 +212,14 @@ The region used for creating the bounding boxes is hard-coded to optimize the
 success of this video but would probably fail if used outside the highway.
 
 If I had to do it again, I would investigate a deep learning approach that would learn much more complex classification boundary. I have been impressed by the YOLO and SDD methods.
+
+---
+---
+
+#### Personal Notes
+
+Histogram of colors : https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/2b62a1c3-e151-4a0e-b6b6-e424fa46ceab/lessons/fd66c083-4ccb-4fe3-bda1-c29db76f50a0/concepts/4f0692c6-e22d-4f28-b5d0-7990a4d8de86
+
+HOG: https://www.youtube.com/watch?v=7S5qXET179I
+
+Udacity dataset : https://github.com/udacity/self-driving-car/tree/master/annotations
